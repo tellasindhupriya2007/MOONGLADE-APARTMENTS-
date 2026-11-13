@@ -1,4 +1,4 @@
-<!DOCTYPE html><html class="scroll-smooth" lang="en"><head>
+<!DOCTYPE html><html class="dark scroll-smooth" lang="en"><head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta content="web_standard" name="shell-type">
@@ -7,19 +7,7 @@
 <meta name="keywords" content="Ira Moonglade, Ira Moonglade Kokapet, Ira Moonglade Hyderabad, E Infra Ira Ventures, 3 BHK flats in Kokapet, 4 BHK apartments Kokapet, luxury apartments near ORR Exit 18A, KONU real estate">
 <meta name="author" content="E Infra Ira Ventures • KONU">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-<meta name="theme-color" id="theme-color-meta" content="#ffffff">
-<script>
-  (function () {
-    try {
-      var saved = localStorage.getItem('theme');
-      if (saved === 'dark') {
-        document.documentElement.classList.add('dark');
-        var m = document.getElementById('theme-color-meta');
-        if (m) m.setAttribute('content', '#050e1d');
-      }
-    } catch (e) {}
-  })();
-</script>
+<meta name="theme-color" id="theme-color-meta" content="#050e1d">
 <meta name="geo.region" content="IN-TG">
 <meta name="geo.placename" content="Kokapet, Hyderabad">
 <meta name="geo.position" content="17.3926;78.3347">
@@ -670,10 +658,6 @@
       <a class="hover:text-[#081730] dark:hover:text-white transition-colors py-1 whitespace-nowrap" href="#faqs">FAQs</a>
     </nav>
     <div class="flex items-center gap-2 sm:gap-3 shrink-0">
-      <button id="theme-toggle" type="button" onclick="toggleTheme()" aria-label="Switch to Dark Mode" class="inline-flex items-center justify-center gap-1.5 px-2.5 sm:px-3 py-2 border border-slate-200 dark:border-white/15 bg-[#f6f6f4] dark:bg-[#091b3a] text-[#081730] dark:text-[#f8fafc] hover:border-[#081730] dark:hover:border-white/40 text-[10px] uppercase tracking-[0.16em] font-medium transition-colors whitespace-nowrap shrink-0 min-h-[38px] min-w-[38px]">
-        <span id="theme-toggle-icon" class="material-symbols-outlined text-[16px]">dark_mode</span>
-        <span id="theme-toggle-label" class="hidden sm:inline">Dark</span>
-      </button>
       <a class="hidden sm:inline-flex items-center justify-center bg-[#081730] text-white hover:bg-[#112c59] dark:bg-[#f8fafc] dark:text-[#050e1d] dark:hover:bg-[#e2e8f0] text-[10px] uppercase tracking-[0.22em] font-semibold px-4 lg:px-5 py-2.5 transition-colors whitespace-nowrap shrink-0 min-h-[38px]" href="#enquiry-suite">Schedule Visit</a>
       <button id="mobile-menu-toggle" type="button" onclick="toggleMobileMenu()" aria-label="Open Navigation Menu" aria-expanded="false" class="lg:hidden inline-flex items-center justify-center px-2.5 py-2 border border-slate-200 dark:border-white/15 bg-white dark:bg-[#091b3a] text-[#081730] dark:text-[#f8fafc] hover:border-[#081730] dark:hover:border-white/40 transition-colors shrink-0 min-h-[38px] min-w-[38px]">
         <span id="mobile-menu-icon" class="material-symbols-outlined text-[19px]">menu</span>
@@ -2154,31 +2138,6 @@
 </div>
 
 <script>
-  // ── Light / Dark Theme Toggle ──────────────────────────────
-  function updateThemeUI() {
-    const isDark = document.documentElement.classList.contains('dark');
-    const icon = document.getElementById('theme-toggle-icon');
-    const label = document.getElementById('theme-toggle-label');
-    const btn = document.getElementById('theme-toggle');
-    const meta = document.getElementById('theme-color-meta');
-    if (icon) icon.textContent = isDark ? 'light_mode' : 'dark_mode';
-    if (label) label.textContent = isDark ? 'Light' : 'Dark';
-    if (btn) btn.setAttribute('aria-label', isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode');
-    if (meta) meta.setAttribute('content', isDark ? '#050e1d' : '#ffffff');
-  }
-
-  function toggleTheme() {
-    const html = document.documentElement;
-    const nextDark = !html.classList.contains('dark');
-    html.classList.toggle('dark', nextDark);
-    try {
-      localStorage.setItem('theme', nextDark ? 'dark' : 'light');
-    } catch (e) {}
-    updateThemeUI();
-  }
-
-  updateThemeUI();
-
   // ── Mobile / Tablet Navigation Drawer ──────────────────────
   function toggleMobileMenu() {
     const drawer = document.getElementById('mobile-nav-drawer');
@@ -2264,7 +2223,6 @@
 
   // ── Scroll animations, progress bar & timers ───────────────
   window.addEventListener('load', function() {
-    updateThemeUI();
     popupInterval = setInterval(openSchedulePopup, 30000);
 
     const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
