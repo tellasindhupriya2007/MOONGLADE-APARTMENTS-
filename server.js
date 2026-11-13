@@ -28,6 +28,7 @@ function sendSeoHtml(req, res) {
   res.send(renderedHtml);
 }
 
+app.use(express.static(path.join(__dirname, 'public'), { index: false }));
 app.use(express.static(__dirname, { index: false }));
 
 app.get('/robots.txt', (req, res) => {
