@@ -33,7 +33,12 @@ function sendSeoHtml(req, res) {
 app.use(express.static(path.join(__dirname, 'public'), {
   index: false,
   maxAge: '30d',
-  immutable: true
+  immutable: true,
+  setHeaders(res, filePath) {
+    if (filePath.endsWith('.css')) {
+      res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
+    }
+  }
 }));
 app.use(express.static(__dirname, { index: false }));
 

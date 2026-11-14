@@ -193,7 +193,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&amp;family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&amp;display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@200..400,0..1&amp;icon_names=add,apartment,arrow_back,arrow_forward,balcony,calendar_today,celebration,check_circle,close,directions_car,domain,download,file_download,fitness_center,flight,hotel,hourglass_top,king_bed,local_hospital,menu,near_me,north_east,open_in_new,park,phone_in_talk,progress_activity,remove,school,shield,shopping_bag,sports_tennis&amp;display=swap" rel="stylesheet">
 </noscript>
-<link rel="stylesheet" href="/assets/tailwind.min.css">
+<link rel="stylesheet" href="/assets/tailwind.min.css?v=20261114c">
 <!-- PAGE ANIMATIONS & INTERACTIVITY -->
 <style>
   /* ── Scroll-reveal base ─────────────────────────────── */
@@ -1932,15 +1932,77 @@
     display: none;
   }
   .ty-editorial-canvas {
+    min-height: 100vh;
+    min-height: 100dvh;
+    width: 100%;
     background-color: #040b18;
     background-image:
-      radial-gradient(ellipse 68% 54% at 50% 48%, rgba(4, 11, 24, 0.78) 0%, rgba(4, 11, 24, 0.50) 56%, rgba(3, 8, 18, 0.72) 100%),
-      linear-gradient(180deg, rgba(3, 9, 20, 0.70) 0%, rgba(4, 12, 27, 0.22) 45%, rgba(3, 9, 20, 0.80) 100%),
+      radial-gradient(ellipse 68% 54% at 50% 46%, rgba(4, 11, 24, 0.78) 0%, rgba(4, 11, 24, 0.50) 58%, rgba(3, 8, 18, 0.74) 100%),
+      linear-gradient(180deg, rgba(3, 9, 20, 0.45) 0%, rgba(4, 12, 27, 0.20) 46%, rgba(3, 9, 20, 0.82) 100%),
       url('/assets/aistudio/dark_silk_bg.webp');
     background-size: cover, cover, cover;
-    background-position: center, center, center 42%;
+    background-position: center, center, center center;
     background-repeat: no-repeat;
   }
+  .ty-headline-display {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    font-weight: 400;
+    color: #ffffff;
+    text-wrap: balance;
+  }
+  .ty-return-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.625rem;
+    background-color: #f8fafc;
+    color: #050e1d;
+    padding: 0.95rem 2rem;
+    font-size: 10.5px;
+    line-height: 1;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+    border: 1px solid rgba(248, 250, 252, 0.9);
+    transition: background-color 0.22s ease, border-color 0.22s ease, transform 0.15s ease;
+  }
+  .ty-return-btn:hover {
+    background-color: #f0d799;
+    border-color: #f0d799;
+  }
+  .ty-return-btn:active {
+    transform: scale(0.99);
+  }
+  .ty-logo-moonglade {
+    width: 34px;
+    height: 34px;
+    border-radius: 9999px;
+    object-fit: cover;
+    border: 1px solid rgba(216, 186, 122, 0.5);
+    flex-shrink: 0;
+  }
+  .ty-logo-konu {
+    height: 20px;
+    width: auto;
+    object-fit: contain;
+    opacity: 0.9;
+    flex-shrink: 0;
+  }
+  @media (min-width: 640px) {
+    .ty-logo-moonglade {
+      width: 38px;
+      height: 38px;
+    }
+    .ty-logo-konu {
+      height: 22px;
+    }
+  }
+  body.thank-you-active > #dark-silk-atmosphere,
   body.thank-you-active > header,
   body.thank-you-active > main,
   body.thank-you-active > footer,
@@ -2089,43 +2151,34 @@
 </div>
 
 <!-- FULL-SCREEN ARCHITECTURAL THANK YOU PAGE VIEW (SHOWN ON FORM SUBMISSION WITH EXACT PREVIOUS SCROLL RETURN) -->
-<section id="thank-you-page" aria-labelledby="ty-headline" class="ty-editorial-canvas sapphire-grain relative z-20 min-h-screen min-h-[100dvh] w-full flex-col justify-between overflow-x-clip px-6 sm:px-12 lg:px-20 py-7 sm:py-10 text-[#f8fafc]">
-  <!-- Subtle Top Co-Branding -->
-  <div class="relative z-10 w-full max-w-[1280px] mx-auto flex items-center justify-between gap-4">
-    <img alt="Ira Moonglade" width="320" height="296" loading="lazy" decoding="async" class="h-11 sm:h-14 w-auto object-contain shrink-0 opacity-95" src="/assets/aistudio/moonglade_crest.webp">
-    <div class="flex flex-col items-end text-right shrink-0">
-      <img alt="KONU" width="280" height="280" loading="lazy" decoding="async" class="h-6 sm:h-8 w-auto object-contain shrink-0 opacity-95" src="/assets/moonglade/konu_logo_hd.webp">
-      <span class="text-[8.5px] sm:text-[9px] uppercase tracking-[0.24em] text-[#cbd5e1]/75 font-medium mt-1.5 whitespace-nowrap">Marketing Partner</span>
-    </div>
-  </div>
-
+<section id="thank-you-page" aria-labelledby="ty-headline" class="ty-editorial-canvas sapphire-grain relative z-20 min-h-screen min-h-[100dvh] w-full flex-col justify-between overflow-x-clip px-6 sm:px-12 lg:px-20 pt-10 sm:pt-14 pb-7 sm:pb-9 text-[#f8fafc]">
   <!-- Dominant Centered Editorial Confirmation Core -->
-  <div class="relative z-10 flex-1 flex flex-col items-center justify-center text-center w-full max-w-[760px] mx-auto py-12 sm:py-16">
+  <div class="relative z-10 flex-1 flex flex-col items-center justify-center text-center w-full max-w-[740px] mx-auto py-10 sm:py-16">
     <!-- Minimal Gold Check Emblem -->
-    <div class="w-10 h-10 rounded-full border border-[#d8ba7a]/55 flex items-center justify-center text-[#d8ba7a]" aria-hidden="true">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <div class="w-9 h-9 rounded-full border border-[#d8ba7a]/55 flex items-center justify-center text-[#d8ba7a]" aria-hidden="true">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
         <polyline points="20 6 9 17 4 12"></polyline>
       </svg>
     </div>
 
-    <p class="text-[11px] sm:text-xs uppercase tracking-[0.32em] text-[#d8ba7a] font-medium mt-6">
-      Private Walkthrough Confirmed
+    <p class="text-[10px] sm:text-[11px] uppercase tracking-[0.3em] text-[#d8ba7a] font-medium mt-5">
+      Site Visit Confirmed
     </p>
 
-    <h2 id="ty-headline" class="font-headline-lg text-[2.5rem] sm:text-[3.75rem] lg:text-[4.5rem] text-white font-normal tracking-[-0.02em] leading-[1.08] mt-4 sm:mt-5" style="text-wrap: balance;">
+    <h2 id="ty-headline" class="ty-headline-display mt-4 sm:mt-5">
       Thank you.
     </h2>
 
-    <p class="text-sm sm:text-base text-[#cbd5e1] font-light leading-[1.8] mt-6 max-w-[440px] mx-auto">
+    <p class="text-sm sm:text-[15px] text-[#cbd5e1] font-light leading-[1.8] mt-5 sm:mt-6 max-w-[440px] mx-auto">
       Your private visit request for Ira Moonglade has been received. A dedicated KONU advisor will reach out shortly to confirm a time that suits you.
     </p>
 
     <!-- Optional Visit Date (Quiet Unboxed Typography) -->
-    <p id="ty-date-line" class="hidden text-[11px] sm:text-xs tracking-[0.22em] uppercase text-[#f0d799] font-medium mt-6 tabular-nums"></p>
+    <p id="ty-date-line" class="hidden text-[11px] sm:text-xs tracking-[0.22em] uppercase text-[#f0d799] font-medium mt-5 tabular-nums"></p>
 
     <!-- Clean Navigation & Concierge Actions -->
-    <div class="mt-10 sm:mt-14 flex flex-col sm:flex-row items-center justify-center gap-5 sm:gap-9 w-full sm:w-auto">
-      <button type="button" onclick="returnFromThankYou()" class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-[#f8fafc] hover:bg-[#f0d799] text-[#050e1d] px-8 py-4 text-[10.5px] uppercase tracking-[0.22em] font-semibold transition-colors cursor-pointer whitespace-nowrap shrink-0">
+    <div class="mt-9 sm:mt-12 flex flex-col sm:flex-row items-center justify-center gap-5 sm:gap-8 w-full sm:w-auto">
+      <button type="button" onclick="returnFromThankYou()" class="ty-return-btn w-full sm:w-auto">
         <span class="material-symbols-outlined text-[15px]">arrow_back</span>
         <span>Return to Previous Page</span>
       </button>
@@ -2136,10 +2189,19 @@
     </div>
   </div>
 
-  <!-- Quiet Location Whisper -->
-  <div class="relative z-10 w-full max-w-[1280px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-[9.5px] sm:text-[10px] uppercase tracking-[0.24em] text-white/45 text-center sm:text-left">
-    <span>Ira Moonglade · Kokapet, Hyderabad</span>
-    <span>E Infra Ira Ventures</span>
+  <!-- Visibly Small Co-Branding Anchored at Bottom -->
+  <div class="relative z-10 w-full max-w-[1200px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 pt-6">
+    <div class="flex items-center gap-3">
+      <img alt="Ira Moonglade" width="128" height="118" loading="lazy" decoding="async" class="ty-logo-moonglade" src="/assets/aistudio/moonglade_logo.webp">
+      <div class="text-left">
+        <span class="block text-[10px] uppercase tracking-[0.22em] text-[#f8fafc]/85 font-medium whitespace-nowrap">Ira Moonglade</span>
+        <span class="block text-[9px] uppercase tracking-[0.2em] text-white/45 mt-0.5 whitespace-nowrap">Kokapet, Hyderabad</span>
+      </div>
+    </div>
+    <div class="flex items-center sm:flex-col sm:items-end gap-2.5 sm:gap-1 text-right">
+      <img alt="KONU" width="160" height="160" loading="lazy" decoding="async" class="ty-logo-konu" src="/assets/moonglade/konu_logo.webp">
+      <span class="text-[8.5px] uppercase tracking-[0.22em] text-white/50 font-medium whitespace-nowrap">Marketing Partner</span>
+    </div>
   </div>
 </section>
 
