@@ -188,10 +188,10 @@
 <link href="https://fonts.googleapis.com" rel="preconnect">
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&amp;family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&amp;display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@200..400,0..1&amp;icon_names=add,apartment,arrow_forward,balcony,calendar_today,celebration,check_circle,close,directions_car,domain,download,file_download,fitness_center,flight,hotel,hourglass_top,king_bed,local_hospital,menu,near_me,north_east,open_in_new,park,phone_in_talk,progress_activity,remove,school,shield,shopping_bag,sports_tennis&amp;display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@200..400,0..1&amp;icon_names=add,apartment,arrow_back,arrow_forward,balcony,calendar_today,celebration,check_circle,close,directions_car,domain,download,file_download,fitness_center,flight,hotel,hourglass_top,king_bed,local_hospital,menu,near_me,north_east,open_in_new,park,phone_in_talk,progress_activity,remove,school,shield,shopping_bag,sports_tennis&amp;display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <noscript>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&amp;family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&amp;display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@200..400,0..1&amp;icon_names=add,apartment,arrow_forward,balcony,calendar_today,celebration,check_circle,close,directions_car,domain,download,file_download,fitness_center,flight,hotel,hourglass_top,king_bed,local_hospital,menu,near_me,north_east,open_in_new,park,phone_in_talk,progress_activity,remove,school,shield,shopping_bag,sports_tennis&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@200..400,0..1&amp;icon_names=add,apartment,arrow_back,arrow_forward,balcony,calendar_today,celebration,check_circle,close,directions_car,domain,download,file_download,fitness_center,flight,hotel,hourglass_top,king_bed,local_hospital,menu,near_me,north_east,open_in_new,park,phone_in_talk,progress_activity,remove,school,shield,shopping_bag,sports_tennis&amp;display=swap" rel="stylesheet">
 </noscript>
 <link rel="stylesheet" href="/assets/tailwind.min.css">
 <!-- PAGE ANIMATIONS & INTERACTIVITY -->
@@ -1924,6 +1924,26 @@
   #popup-close-btn:hover {
     background: #081730; color: #ffffff; border-color: #081730;
   }
+
+  /* ── Dedicated Thank You Page State ───────────────────── */
+  #thank-you-page {
+    display: none;
+  }
+  body.thank-you-active > header,
+  body.thank-you-active > main,
+  body.thank-you-active > footer,
+  body.thank-you-active > #floating-cta,
+  body.thank-you-active > #schedule-popup {
+    display: none !important;
+  }
+  body.thank-you-active > #thank-you-page {
+    display: flex;
+    animation: tyFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  @keyframes tyFadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
 </style>
 
 <!-- FLOATING SCHEDULE VISIT CTA -->
@@ -2054,6 +2074,53 @@
   </div>
 </div>
 
+<!-- MINIMAL EDITORIAL THANK YOU PAGE VIEW (SHOWN ON FORM SUBMISSION WITH EXACT PREVIOUS SCROLL RETURN) -->
+<section id="thank-you-page" aria-labelledby="ty-headline" class="sapphire-mesh-surface sapphire-grain relative z-20 min-h-screen w-full flex-col items-center justify-center px-6 sm:px-10 py-14 sm:py-20 text-[#f8fafc]">
+  <div class="relative z-10 w-full max-w-[640px] bg-[#061329]/82 backdrop-blur-2xl border border-white/12 border-t-2 border-t-[#d8ba7a] shadow-[0_32px_96px_rgba(2,6,16,0.78)] px-7 py-11 sm:px-14 sm:py-16 text-center">
+    <!-- Balanced Left / Right Co-Branding -->
+    <div class="w-full flex items-center justify-between gap-4 sm:gap-8 pb-8 sm:pb-10 mb-9 sm:mb-11 border-b border-white/12">
+      <div class="flex items-center justify-start">
+        <img alt="Ira Moonglade Logo" width="320" height="296" loading="lazy" decoding="async" class="h-14 sm:h-20 w-auto object-contain shrink-0" src="/assets/aistudio/moonglade_crest.webp">
+      </div>
+      <div class="flex flex-col items-end text-right">
+        <img alt="KONU Logo" width="280" height="280" loading="lazy" decoding="async" class="h-8 sm:h-11 w-auto object-contain shrink-0" src="/assets/moonglade/konu_logo_hd.webp">
+        <span class="text-[8.5px] sm:text-[9px] uppercase tracking-[0.22em] text-white/75 font-medium mt-2 whitespace-nowrap">Marketing Partner</span>
+      </div>
+    </div>
+
+    <!-- Calm Confirmation Header -->
+    <div class="inline-flex flex-col items-center">
+      <span class="material-symbols-outlined text-[#d8ba7a] text-[32px]">check_circle</span>
+      <p class="text-[10px] uppercase tracking-[0.28em] text-[#d8ba7a] font-semibold mt-3.5">
+        Private Walkthrough Confirmed
+      </p>
+    </div>
+
+    <!-- Generous Editorial Typography -->
+    <h2 id="ty-headline" class="font-headline-lg text-4xl sm:text-5xl text-white font-normal tracking-tight leading-[1.12] mt-4">
+      Thank You.
+    </h2>
+    <p class="text-sm text-[#cbd5e1] font-light leading-[1.8] mt-5 max-w-[430px] mx-auto">
+      Your private visit request for Ira Moonglade has been received. A dedicated KONU advisor will reach out shortly to confirm a time that suits you.
+    </p>
+
+    <!-- Optional Visit Date (Hidden When Not Selected) -->
+    <p id="ty-date-line" class="hidden text-xs tracking-[0.12em] uppercase text-[#f0d799] font-medium mt-6 tabular-nums"></p>
+
+    <!-- Spacious Primary Action & Concierge Contact -->
+    <div class="mt-10 sm:mt-12 flex flex-col sm:flex-row items-center justify-center gap-5 sm:gap-8">
+      <button type="button" onclick="returnFromThankYou()" class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-[#f8fafc] hover:bg-[#f0d799] text-[#050e1d] px-8 py-4 text-[10px] uppercase tracking-[0.22em] font-semibold transition-colors cursor-pointer">
+        <span class="material-symbols-outlined text-[15px]">arrow_back</span>
+        <span>Return to Previous Page</span>
+      </button>
+      <a href="tel:+914088204400" class="inline-flex items-center justify-center gap-2 text-xs tracking-[0.1em] text-[#cbd5e1] hover:text-[#f0d799] font-normal tabular-nums transition-colors py-1">
+        <span class="material-symbols-outlined text-[15px] text-[#d8ba7a]">phone_in_talk</span>
+        <span>+91 40 8820 4400</span>
+      </a>
+    </div>
+  </div>
+</section>
+
 <script>
   // ── Mobile / Tablet Navigation Drawer ──────────────────────
   function toggleMobileMenu() {
@@ -2076,10 +2143,146 @@
     if (btn) btn.setAttribute('aria-expanded', 'false');
   }
 
-  // ── Popup open/close ───────────────────────────────────────
+  // ── Dedicated Thank You Page State & Scroll Restoration ────
+  let lastSavedScrollY = 0;
   let popupInterval = null;
 
+  function formatVisitDate(rawDate) {
+    if (!rawDate) return '';
+    try {
+      const parsed = new Date(rawDate + 'T00:00:00');
+      if (!isNaN(parsed.getTime())) {
+        return parsed.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+      }
+    } catch (e) {}
+    return rawDate;
+  }
+
+  function renderThankYouDetails(data) {
+    const headlineEl = document.getElementById('ty-headline');
+    const dateLineEl = document.getElementById('ty-date-line');
+
+    const cleanName = (data && data.name ? String(data.name).trim() : '');
+    if (headlineEl) {
+      headlineEl.textContent = cleanName ? `Thank You, ${cleanName}.` : 'Thank You.';
+    }
+    if (dateLineEl) {
+      const dateStr = data && data.date ? formatVisitDate(data.date) : '';
+      if (dateStr) {
+        dateLineEl.textContent = `Preferred Visit · ${dateStr}`;
+        dateLineEl.classList.remove('hidden');
+      } else {
+        dateLineEl.textContent = '';
+        dateLineEl.classList.add('hidden');
+      }
+    }
+  }
+
+  function showThankYouPage(details) {
+    const capturedScrollY = typeof details?.scrollY === 'number' ? details.scrollY : (window.scrollY || window.pageYOffset || 0);
+    lastSavedScrollY = capturedScrollY;
+
+    const payload = {
+      name: details?.name || '',
+      phone: details?.phone || '',
+      date: details?.date || '',
+      ref: details?.ref || ('IM-KONU-' + String(Math.floor(1000 + Math.random() * 9000))),
+      scrollY: capturedScrollY
+    };
+
+    try {
+      sessionStorage.setItem('moonglade_thank_you', JSON.stringify(payload));
+    } catch (e) {}
+
+    renderThankYouDetails(payload);
+
+    // Ensure popup modal & timer are cleanly closed
+    clearInterval(popupInterval);
+    const popup = document.getElementById('schedule-popup');
+    if (popup) popup.classList.remove('popup-visible');
+    document.body.style.overflow = '';
+
+    document.body.classList.add('thank-you-active');
+
+    if (window.location.pathname !== '/thank-you') {
+      try {
+        window.history.pushState({ thankYou: true, scrollY: capturedScrollY }, '', '/thank-you');
+      } catch (e) {}
+    }
+
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }
+
+  function restorePreviousPosition(targetY) {
+    document.body.classList.remove('thank-you-active');
+    document.body.style.overflow = '';
+
+    const y = typeof targetY === 'number' ? targetY : lastSavedScrollY;
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: y, behavior: 'instant' });
+      requestAnimationFrame(() => {
+        window.scrollTo({ top: y, behavior: 'instant' });
+        window.dispatchEvent(new Event('scroll'));
+      });
+    });
+  }
+
+  function returnFromThankYou() {
+    let targetY = lastSavedScrollY;
+    if (!targetY) {
+      try {
+        const stored = JSON.parse(sessionStorage.getItem('moonglade_thank_you') || 'null');
+        if (stored && typeof stored.scrollY === 'number') targetY = stored.scrollY;
+      } catch (e) {}
+    }
+
+    if (window.history.state && window.history.state.thankYou) {
+      lastSavedScrollY = targetY;
+      window.history.back();
+      return;
+    }
+
+    if (window.location.pathname === '/thank-you') {
+      try {
+        window.history.replaceState(null, '', '/');
+      } catch (e) {}
+    }
+    restorePreviousPosition(targetY);
+  }
+
+  window.addEventListener('popstate', function(event) {
+    if (event.state && event.state.thankYou) {
+      try {
+        const stored = JSON.parse(sessionStorage.getItem('moonglade_thank_you') || 'null');
+        if (stored) renderThankYouDetails(stored);
+      } catch (e) {}
+      document.body.classList.add('thank-you-active');
+      document.body.style.overflow = '';
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    } else if (document.body.classList.contains('thank-you-active')) {
+      let targetY = lastSavedScrollY;
+      try {
+        const stored = JSON.parse(sessionStorage.getItem('moonglade_thank_you') || 'null');
+        if (stored && typeof stored.scrollY === 'number') targetY = stored.scrollY;
+      } catch (e) {}
+      restorePreviousPosition(targetY);
+    }
+  });
+
+  if (window.location.pathname === '/thank-you') {
+    try {
+      const stored = JSON.parse(sessionStorage.getItem('moonglade_thank_you') || 'null');
+      if (stored) {
+        if (typeof stored.scrollY === 'number') lastSavedScrollY = stored.scrollY;
+        renderThankYouDetails(stored);
+      }
+    } catch (e) {}
+    document.body.classList.add('thank-you-active');
+  }
+
+  // ── Popup open/close ───────────────────────────────────────
   function openSchedulePopup() {
+    if (document.body.classList.contains('thank-you-active')) return;
     const popup = document.getElementById('schedule-popup');
     if (popup.classList.contains('popup-visible')) return;
     popup.classList.add('popup-visible');
@@ -2102,40 +2305,44 @@
     popupInterval = setInterval(openSchedulePopup, 30000);
   }
 
-  // ── Form submit ────────────────────────────────────────────
+  // ── Popup Form Submit -> Dedicated Thank You Page ──────────
   function handlePopupSubmit(e) {
     e.preventDefault();
+    const scrollYBeforeSubmit = window.scrollY || window.pageYOffset || 0;
+    const name = document.getElementById('pf-name')?.value || '';
+    const phone = document.getElementById('pf-phone')?.value || '';
+    const date = document.getElementById('pf-date')?.value || '';
+
+    const form = document.getElementById('popup-form');
     const btn = document.querySelector('#popup-form .floating-blue-btn');
-    if (btn) btn.style.opacity = '0.85';
-    document.getElementById('popup-btn-text').textContent = 'Reserving Slot…';
-    document.getElementById('popup-btn-icon').textContent = 'hourglass_top';
+    if (btn) {
+      btn.disabled = true;
+      btn.style.opacity = '0.85';
+    }
+    const btnText = document.getElementById('popup-btn-text');
+    const btnIcon = document.getElementById('popup-btn-icon');
+    if (btnText) btnText.textContent = 'Reserving Slot…';
+    if (btnIcon) btnIcon.textContent = 'hourglass_top';
 
     setTimeout(() => {
-      document.getElementById('popup-form').style.opacity = '0';
-      document.getElementById('popup-form').style.transform = 'translateY(-8px)';
-      document.getElementById('popup-form').style.transition = 'all 0.3s ease';
-      setTimeout(() => {
-        document.getElementById('popup-form').classList.add('hidden');
-        document.getElementById('popup-success').classList.remove('hidden');
-      }, 300);
+      if (form) form.reset();
+      const dateEl = document.getElementById('pf-date');
+      if (dateEl) dateEl.type = 'text';
+      if (btn) {
+        btn.disabled = false;
+        btn.style.opacity = '';
+      }
+      if (btnText) btnText.textContent = 'Book Private Walkthrough';
+      if (btnIcon) btnIcon.textContent = 'arrow_forward';
 
-      setTimeout(() => {
-        closeSchedulePopup();
-        setTimeout(() => {
-          const form = document.getElementById('popup-form');
-          form.classList.remove('hidden');
-          form.style.opacity = '1';
-          form.style.transform = 'none';
-          form.reset();
-          const dateEl = document.getElementById('pf-date');
-          if (dateEl) dateEl.type = 'text';
-          document.getElementById('popup-success').classList.add('hidden');
-          if (btn) btn.style.opacity = '';
-          document.getElementById('popup-btn-text').textContent = 'Book Private Walkthrough';
-          document.getElementById('popup-btn-icon').textContent = 'arrow_forward';
-        }, 500);
-      }, 4000);
-    }, 800);
+      showThankYouPage({
+        source: 'popup',
+        name,
+        phone,
+        date,
+        scrollY: scrollYBeforeSubmit
+      });
+    }, 450);
   }
 
   // ── Scroll animations, progress bar & timers ───────────────
@@ -2365,18 +2572,34 @@
       });
     }
 
-    // Form submission handler
+    // In-Page Enquiry Form submission handler -> Dedicated Thank You Page
     function handleEnquirySubmit(e) {
       e.preventDefault();
+      const scrollYBeforeSubmit = window.scrollY || window.pageYOffset || 0;
+      const form = e.target;
       const btn = document.getElementById('submit-btn');
-      const success = document.getElementById('form-success');
+      const name = document.getElementById('eq-name')?.value || '';
+      const phone = document.getElementById('eq-phone')?.value || '';
+      const date = document.getElementById('eq-date')?.value || '';
+
       btn.disabled = true;
       btn.innerHTML = '<span class="material-symbols-outlined animate-spin text-[16px]">progress_activity</span><span>Sending Request...</span>';
 
       setTimeout(() => {
-        btn.style.display = 'none';
-        success.classList.remove('hidden');
-      }, 800);
+        if (form && typeof form.reset === 'function') form.reset();
+        const dateEl = document.getElementById('eq-date');
+        if (dateEl) dateEl.type = 'text';
+        btn.disabled = false;
+        btn.innerHTML = '<span>Book Private Walkthrough</span><span class="material-symbols-outlined text-[15px]">arrow_forward</span>';
+
+        showThankYouPage({
+          source: 'enquiry',
+          name,
+          phone,
+          date,
+          scrollY: scrollYBeforeSubmit
+        });
+      }, 450);
     }
   </script>
 

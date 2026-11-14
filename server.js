@@ -62,6 +62,7 @@ app.get('/sitemap.xml', (req, res) => {
 
 app.get('/', sendSeoHtml);
 app.get('/index.html', sendSeoHtml);
+app.get('/thank-you', sendSeoHtml);
 
 app.listen(PORT, HOST, () => {
   console.log(`Server running at http://${HOST}:${PORT}`);
