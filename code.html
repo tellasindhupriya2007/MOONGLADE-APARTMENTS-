@@ -1692,16 +1692,16 @@
             Explore Ira Moonglade through a personalised private walkthrough.
           </p>
 
-          <form class="mt-5 space-y-3.5" onsubmit="handleEnquirySubmit(event)">
+          <form id="enquiry-form" class="mt-5 space-y-3.5" onsubmit="handleEnquirySubmit(event)">
             <div class="floating-form-field">
-              <input id="eq-name" required="" type="text" placeholder=" ">
+              <input id="eq-name" required="" type="text" maxlength="120" autocomplete="name" placeholder=" ">
               <label for="eq-name">Full Name *</label>
               <div class="field-line"></div>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
               <div class="floating-form-field">
-                <input id="eq-phone" required="" type="tel" placeholder=" ">
+                <input id="eq-phone" required="" type="tel" maxlength="30" autocomplete="tel" placeholder=" ">
                 <label for="eq-phone">Phone / WhatsApp *</label>
                 <div class="field-line"></div>
               </div>
@@ -1713,10 +1713,12 @@
             </div>
 
             <div class="floating-form-field">
-              <input id="eq-email" type="email" placeholder=" ">
+              <input id="eq-email" type="email" maxlength="100" autocomplete="email" placeholder=" ">
               <label for="eq-email">Email Address (Optional)</label>
               <div class="field-line"></div>
             </div>
+
+            <p id="eq-error" class="hidden text-[11px] text-red-700 font-medium pt-0.5" role="alert"></p>
 
             <div class="pt-2">
               <button class="floating-blue-btn" id="submit-btn" type="submit">
@@ -2013,7 +2015,7 @@
         <form id="popup-form" class="mt-4 space-y-3" onsubmit="handlePopupSubmit(event)">
           <!-- Full Name -->
           <div class="floating-form-field">
-            <input type="text" id="pf-name" required placeholder=" ">
+            <input type="text" id="pf-name" required maxlength="120" autocomplete="name" placeholder=" ">
             <label for="pf-name">Full Name *</label>
             <div class="field-line"></div>
           </div>
@@ -2021,7 +2023,7 @@
           <!-- Phone/WhatsApp & Preferred Visit Date -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div class="floating-form-field">
-              <input type="tel" id="pf-phone" required placeholder=" ">
+              <input type="tel" id="pf-phone" required maxlength="30" autocomplete="tel" placeholder=" ">
               <label for="pf-phone">Phone / WhatsApp *</label>
               <div class="field-line"></div>
             </div>
@@ -2031,6 +2033,8 @@
               <div class="field-line"></div>
             </div>
           </div>
+
+          <p id="pf-error" class="hidden text-[11px] text-red-700 font-medium pt-0.5" role="alert"></p>
 
           <!-- Strong Deep Blue Primary CTA -->
           <div class="pt-2">
@@ -2120,6 +2124,23 @@
     </div>
   </div>
 </section>
+
+<!-- Hidden Zoho CRM WebToLead Bridge Form (Required Tokens & Analytics Anchor) -->
+<div id="crmWebToEntityForm" class="zcwf_lblLeft crmWebToEntityForm hidden" aria-hidden="true" style="display:none;">
+  <form id="webform1320106000002729011" name="WebToLeads1320106000002729011" action="https://crm.zoho.in/crm/WebToLeadForm" method="POST" accept-charset="UTF-8">
+    <input type="text" style="display:none;" name="xnQsjsdp" value="4a027f3f96fd4d12066d2e2cea77db0481a51f1b86f946cb5b38851a5781946c">
+    <input type="hidden" name="zc_gad" id="zc_gad" value="">
+    <input type="text" style="display:none;" name="xmIwtLD" value="b9831c6e23864326a35c40576b9a9113a204747fd29c6c30e9190db52c45a5ecf159ab321981effa04ae43afe837f3f0">
+    <input type="text" style="display:none;" name="actionType" value="TGVhZHM=">
+    <input type="text" style="display:none;" name="returnURL" value="https://moongladeapartments.vercel.app/thank-you">
+    <input type="hidden" id="First_Name" name="First Name" maxlength="40" value="">
+    <input type="hidden" id="Last_Name" name="Last Name" maxlength="80" value="">
+    <input type="hidden" id="Phone" name="Phone" maxlength="30" value="">
+    <input type="hidden" id="LEADCF131" name="LEADCF131" maxlength="20" value="">
+    <input type="hidden" id="Email" name="Email" maxlength="100" value="">
+    <input type="text" style="display:none;" name="aG9uZXlwb3Q" value="">
+  </form>
+</div>
 
 <script>
   // ── Mobile / Tablet Navigation Drawer ──────────────────────
@@ -2305,14 +2326,181 @@
     popupInterval = setInterval(openSchedulePopup, 30000);
   }
 
-  // ── Popup Form Submit -> Dedicated Thank You Page ──────────
-  function handlePopupSubmit(e) {
-    e.preventDefault();
-    const scrollYBeforeSubmit = window.scrollY || window.pageYOffset || 0;
-    const name = document.getElementById('pf-name')?.value || '';
-    const phone = document.getElementById('pf-phone')?.value || '';
-    const date = document.getElementById('pf-date')?.value || '';
+  // ── Zoho CRM WebToLead Submission Helper ──────────────────
+  window._wfa_fstprtcken = window._wfa_fstprtcken || {};
+  window._wfa_fstprtcken[1320106000002729011] = true;
 
+  function splitFullNameForZoho(fullName) {
+    const cleaned = String(fullName || '').trim().replace(/\s+/g, ' ');
+    if (!cleaned) return { firstName: '', lastName: '' };
+    const parts = cleaned.split(' ');
+    if (parts.length === 1) {
+      return { firstName: '', lastName: parts[0].slice(0, 80) };
+    }
+    const lastName = parts.pop().slice(0, 80);
+    const firstName = parts.join(' ').slice(0, 40);
+    return { firstName, lastName };
+  }
+
+  function formatDateForZoho(rawDate) {
+    const val = String(rawDate || '').trim();
+    if (!val) return '';
+    const isoMatch = /^(\d{4})-(\d{2})-(\d{2})$/.exec(val);
+    if (isoMatch) {
+      return `${isoMatch[3]}/${isoMatch[2]}/${isoMatch[1]}`;
+    }
+    return val.slice(0, 20);
+  }
+
+  function validateLeadInputs({ name, phone, email, errorEl, nameEl, phoneEl, emailEl }) {
+    if (errorEl) {
+      errorEl.textContent = '';
+      errorEl.classList.add('hidden');
+    }
+    const cleanName = String(name || '').trim();
+    if (!cleanName) {
+      if (errorEl) {
+        errorEl.textContent = 'Please enter your full name.';
+        errorEl.classList.remove('hidden');
+      }
+      if (nameEl) nameEl.focus();
+      return false;
+    }
+
+    const cleanPhone = String(phone || '').trim();
+    const digitCount = cleanPhone.replace(/\D/g, '').length;
+    if (!cleanPhone || digitCount < 7) {
+      if (errorEl) {
+        errorEl.textContent = 'Please enter a valid phone or WhatsApp number.';
+        errorEl.classList.remove('hidden');
+      }
+      if (phoneEl) phoneEl.focus();
+      return false;
+    }
+
+    const cleanEmail = String(email || '').trim();
+    if (cleanEmail) {
+      const atpos = cleanEmail.indexOf('@');
+      const dotpos = cleanEmail.lastIndexOf('.');
+      if (atpos < 1 || dotpos < atpos + 2 || dotpos + 2 >= cleanEmail.length) {
+        if (errorEl) {
+          errorEl.textContent = 'Please enter a valid email address.';
+          errorEl.classList.remove('hidden');
+        }
+        if (emailEl) emailEl.focus();
+        return false;
+      }
+    }
+    return true;
+  }
+
+  async function submitLeadToZohoCRM(details) {
+    const zohoForm = document.getElementById('webform1320106000002729011');
+    const { firstName, lastName } = splitFullNameForZoho(details.name);
+    const formattedDate = formatDateForZoho(details.date);
+    const cleanPhone = String(details.phone || '').trim().slice(0, 30);
+    const cleanEmail = String(details.email || '').trim().slice(0, 100);
+
+    if (zohoForm) {
+      const setVal = (id, val) => {
+        const el = document.getElementById(id);
+        if (el) el.value = val;
+      };
+      setVal('First_Name', firstName);
+      setVal('Last_Name', lastName);
+      setVal('Phone', cleanPhone);
+      setVal('LEADCF131', formattedDate);
+      setVal('Email', cleanEmail);
+
+      try {
+        if (window._wfa_track && typeof window._wfa_track.wfa_submit === 'function') {
+          window._wfa_track.wfa_submit({ target: zohoForm });
+        }
+      } catch (err) {}
+    }
+
+    const params = new URLSearchParams();
+    if (zohoForm) {
+      const fd = new FormData(zohoForm);
+      for (const [k, v] of fd.entries()) {
+        params.append(k, String(v));
+      }
+    } else {
+      params.append('xnQsjsdp', '4a027f3f96fd4d12066d2e2cea77db0481a51f1b86f946cb5b38851a5781946c');
+      params.append('zc_gad', '');
+      params.append('xmIwtLD', 'b9831c6e23864326a35c40576b9a9113a204747fd29c6c30e9190db52c45a5ecf159ab321981effa04ae43afe837f3f0');
+      params.append('actionType', 'TGVhZHM=');
+      params.append('returnURL', 'https://moongladeapartments.vercel.app/thank-you');
+      params.append('First Name', firstName);
+      params.append('Last Name', lastName);
+      params.append('Phone', cleanPhone);
+      params.append('LEADCF131', formattedDate);
+      params.append('Email', cleanEmail);
+      params.append('aG9uZXlwb3Q', '');
+    }
+
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('service') === 'smarturl' && !params.has('service')) {
+      params.append('service', 'smarturl');
+    }
+
+    const controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
+    const timeoutId = controller ? setTimeout(() => controller.abort(), 5000) : null;
+
+    try {
+      await fetch('https://crm.zoho.in/crm/WebToLeadForm', {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+        },
+        body: params.toString(),
+        keepalive: true,
+        signal: controller ? controller.signal : undefined
+      });
+      try {
+        if (window._wfa_track && typeof window._wfa_track.wfa_post_submit === 'function' && zohoForm) {
+          window._wfa_track.wfa_post_submit({ target: zohoForm });
+        }
+      } catch (err) {}
+    } catch (err) {
+      if (err && err.name !== 'AbortError' && zohoForm) {
+        try {
+          let frame = document.getElementById('zoho-crm-fallback-frame');
+          if (!frame) {
+            frame = document.createElement('iframe');
+            frame.id = 'zoho-crm-fallback-frame';
+            frame.name = 'zoho_crm_fallback_frame';
+            frame.style.display = 'none';
+            frame.setAttribute('aria-hidden', 'true');
+            document.body.appendChild(frame);
+          }
+          zohoForm.setAttribute('target', 'zoho_crm_fallback_frame');
+          HTMLFormElement.prototype.submit.call(zohoForm);
+        } catch (fallbackErr) {}
+      }
+    } finally {
+      if (timeoutId) clearTimeout(timeoutId);
+    }
+  }
+
+  // ── Popup Form Submit -> Zoho CRM -> Dedicated Thank You Page ──
+  async function handlePopupSubmit(e) {
+    e.preventDefault();
+    const nameEl = document.getElementById('pf-name');
+    const phoneEl = document.getElementById('pf-phone');
+    const dateEl = document.getElementById('pf-date');
+    const errorEl = document.getElementById('pf-error');
+
+    const name = nameEl?.value || '';
+    const phone = phoneEl?.value || '';
+    const date = dateEl?.value || '';
+
+    if (!validateLeadInputs({ name, phone, email: '', errorEl, nameEl, phoneEl })) {
+      return;
+    }
+
+    const scrollYBeforeSubmit = window.scrollY || window.pageYOffset || 0;
     const form = document.getElementById('popup-form');
     const btn = document.querySelector('#popup-form .floating-blue-btn');
     if (btn) {
@@ -2324,25 +2512,24 @@
     if (btnText) btnText.textContent = 'Reserving Slot…';
     if (btnIcon) btnIcon.textContent = 'hourglass_top';
 
-    setTimeout(() => {
-      if (form) form.reset();
-      const dateEl = document.getElementById('pf-date');
-      if (dateEl) dateEl.type = 'text';
-      if (btn) {
-        btn.disabled = false;
-        btn.style.opacity = '';
-      }
-      if (btnText) btnText.textContent = 'Book Private Walkthrough';
-      if (btnIcon) btnIcon.textContent = 'arrow_forward';
+    await submitLeadToZohoCRM({ name, phone, date, email: '' });
 
-      showThankYouPage({
-        source: 'popup',
-        name,
-        phone,
-        date,
-        scrollY: scrollYBeforeSubmit
-      });
-    }, 450);
+    if (form) form.reset();
+    if (dateEl) dateEl.type = 'text';
+    if (btn) {
+      btn.disabled = false;
+      btn.style.opacity = '';
+    }
+    if (btnText) btnText.textContent = 'Book Private Walkthrough';
+    if (btnIcon) btnIcon.textContent = 'arrow_forward';
+
+    showThankYouPage({
+      source: 'popup',
+      name: name.trim(),
+      phone: phone.trim(),
+      date,
+      scrollY: scrollYBeforeSubmit
+    });
   }
 
   // ── Scroll animations, progress bar & timers ───────────────
@@ -2572,36 +2759,48 @@
       });
     }
 
-    // In-Page Enquiry Form submission handler -> Dedicated Thank You Page
-    function handleEnquirySubmit(e) {
+    // In-Page Enquiry Form submission handler -> Zoho CRM -> Dedicated Thank You Page
+    async function handleEnquirySubmit(e) {
       e.preventDefault();
-      const scrollYBeforeSubmit = window.scrollY || window.pageYOffset || 0;
       const form = e.target;
       const btn = document.getElementById('submit-btn');
-      const name = document.getElementById('eq-name')?.value || '';
-      const phone = document.getElementById('eq-phone')?.value || '';
-      const date = document.getElementById('eq-date')?.value || '';
+      const nameEl = document.getElementById('eq-name');
+      const phoneEl = document.getElementById('eq-phone');
+      const dateEl = document.getElementById('eq-date');
+      const emailEl = document.getElementById('eq-email');
+      const errorEl = document.getElementById('eq-error');
 
+      const name = nameEl?.value || '';
+      const phone = phoneEl?.value || '';
+      const date = dateEl?.value || '';
+      const email = emailEl?.value || '';
+
+      if (!validateLeadInputs({ name, phone, email, errorEl, nameEl, phoneEl, emailEl })) {
+        return;
+      }
+
+      const scrollYBeforeSubmit = window.scrollY || window.pageYOffset || 0;
       btn.disabled = true;
       btn.innerHTML = '<span class="material-symbols-outlined animate-spin text-[16px]">progress_activity</span><span>Sending Request...</span>';
 
-      setTimeout(() => {
-        if (form && typeof form.reset === 'function') form.reset();
-        const dateEl = document.getElementById('eq-date');
-        if (dateEl) dateEl.type = 'text';
-        btn.disabled = false;
-        btn.innerHTML = '<span>Book Private Walkthrough</span><span class="material-symbols-outlined text-[15px]">arrow_forward</span>';
+      await submitLeadToZohoCRM({ name, phone, date, email });
 
-        showThankYouPage({
-          source: 'enquiry',
-          name,
-          phone,
-          date,
-          scrollY: scrollYBeforeSubmit
-        });
-      }, 450);
+      if (form && typeof form.reset === 'function') form.reset();
+      if (dateEl) dateEl.type = 'text';
+      btn.disabled = false;
+      btn.innerHTML = '<span>Book Private Walkthrough</span><span class="material-symbols-outlined text-[15px]">arrow_forward</span>';
+
+      showThankYouPage({
+        source: 'enquiry',
+        name: name.trim(),
+        phone: phone.trim(),
+        date,
+        scrollY: scrollYBeforeSubmit
+      });
     }
   </script>
 
+  <!-- Zoho CRM WebForm Analytics Tracking (Deferred to preserve LCP/FCP) -->
+  <script id="wf_anal" defer src="https://crm.zohopublic.in/crm/WebFormAnalyticsServeServlet?rid=3bcdd920f788620885a5194bb0272d144739eacec27ae0fb5b770a6a40d2cd2d8f183d014ed89a63fc7c802215feb2c2gid95f18761ae6b780fb16b9231d1aaa9d4b5c5223c8398822ac9998f158308d4b7gid8925d50471b6c71242c0668fead48f0246c06d6b5d05542a324273da42f28c18gid3d9041a16b19a5da8ab65fcb3dfe8421ce73f42f845fe014ae626ca9263c9044&tw=65e4e898e4a4e60198af44ffc8cd10b2b7b23ffeef0a74799f12a92c993bb774&version=v2"></script>
 
 </body></html>
