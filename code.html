@@ -1931,6 +1931,16 @@
   #thank-you-page {
     display: none;
   }
+  .ty-editorial-canvas {
+    background-color: #040b18;
+    background-image:
+      radial-gradient(ellipse 68% 54% at 50% 48%, rgba(4, 11, 24, 0.78) 0%, rgba(4, 11, 24, 0.50) 56%, rgba(3, 8, 18, 0.72) 100%),
+      linear-gradient(180deg, rgba(3, 9, 20, 0.70) 0%, rgba(4, 12, 27, 0.22) 45%, rgba(3, 9, 20, 0.80) 100%),
+      url('/assets/aistudio/dark_silk_bg.webp');
+    background-size: cover, cover, cover;
+    background-position: center, center, center 42%;
+    background-repeat: no-repeat;
+  }
   body.thank-you-active > header,
   body.thank-you-active > main,
   body.thank-you-active > footer,
@@ -1940,7 +1950,7 @@
   }
   body.thank-you-active > #thank-you-page {
     display: flex;
-    animation: tyFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: tyFadeIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
   @keyframes tyFadeIn {
     from { opacity: 0; transform: translateY(10px); }
@@ -2078,50 +2088,58 @@
   </div>
 </div>
 
-<!-- MINIMAL EDITORIAL THANK YOU PAGE VIEW (SHOWN ON FORM SUBMISSION WITH EXACT PREVIOUS SCROLL RETURN) -->
-<section id="thank-you-page" aria-labelledby="ty-headline" class="sapphire-mesh-surface sapphire-grain relative z-20 min-h-screen w-full flex-col items-center justify-center px-6 sm:px-10 py-14 sm:py-20 text-[#f8fafc]">
-  <div class="relative z-10 w-full max-w-[640px] bg-[#061329]/82 backdrop-blur-2xl border border-white/12 border-t-2 border-t-[#d8ba7a] shadow-[0_32px_96px_rgba(2,6,16,0.78)] px-7 py-11 sm:px-14 sm:py-16 text-center">
-    <!-- Balanced Left / Right Co-Branding -->
-    <div class="w-full flex items-center justify-between gap-4 sm:gap-8 pb-8 sm:pb-10 mb-9 sm:mb-11 border-b border-white/12">
-      <div class="flex items-center justify-start">
-        <img alt="Ira Moonglade Logo" width="320" height="296" loading="lazy" decoding="async" class="h-14 sm:h-20 w-auto object-contain shrink-0" src="/assets/aistudio/moonglade_crest.webp">
-      </div>
-      <div class="flex flex-col items-end text-right">
-        <img alt="KONU Logo" width="280" height="280" loading="lazy" decoding="async" class="h-8 sm:h-11 w-auto object-contain shrink-0" src="/assets/moonglade/konu_logo_hd.webp">
-        <span class="text-[8.5px] sm:text-[9px] uppercase tracking-[0.22em] text-white/75 font-medium mt-2 whitespace-nowrap">Marketing Partner</span>
-      </div>
+<!-- FULL-SCREEN ARCHITECTURAL THANK YOU PAGE VIEW (SHOWN ON FORM SUBMISSION WITH EXACT PREVIOUS SCROLL RETURN) -->
+<section id="thank-you-page" aria-labelledby="ty-headline" class="ty-editorial-canvas sapphire-grain relative z-20 min-h-screen min-h-[100dvh] w-full flex-col justify-between overflow-x-clip px-6 sm:px-12 lg:px-20 py-7 sm:py-10 text-[#f8fafc]">
+  <!-- Subtle Top Co-Branding -->
+  <div class="relative z-10 w-full max-w-[1280px] mx-auto flex items-center justify-between gap-4">
+    <img alt="Ira Moonglade" width="320" height="296" loading="lazy" decoding="async" class="h-11 sm:h-14 w-auto object-contain shrink-0 opacity-95" src="/assets/aistudio/moonglade_crest.webp">
+    <div class="flex flex-col items-end text-right shrink-0">
+      <img alt="KONU" width="280" height="280" loading="lazy" decoding="async" class="h-6 sm:h-8 w-auto object-contain shrink-0 opacity-95" src="/assets/moonglade/konu_logo_hd.webp">
+      <span class="text-[8.5px] sm:text-[9px] uppercase tracking-[0.24em] text-[#cbd5e1]/75 font-medium mt-1.5 whitespace-nowrap">Marketing Partner</span>
+    </div>
+  </div>
+
+  <!-- Dominant Centered Editorial Confirmation Core -->
+  <div class="relative z-10 flex-1 flex flex-col items-center justify-center text-center w-full max-w-[760px] mx-auto py-12 sm:py-16">
+    <!-- Minimal Gold Check Emblem -->
+    <div class="w-10 h-10 rounded-full border border-[#d8ba7a]/55 flex items-center justify-center text-[#d8ba7a]" aria-hidden="true">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
     </div>
 
-    <!-- Calm Confirmation Header -->
-    <div class="inline-flex flex-col items-center">
-      <span class="material-symbols-outlined text-[#d8ba7a] text-[32px]">check_circle</span>
-      <p class="text-[10px] uppercase tracking-[0.28em] text-[#d8ba7a] font-semibold mt-3.5">
-        Private Walkthrough Confirmed
-      </p>
-    </div>
+    <p class="text-[11px] sm:text-xs uppercase tracking-[0.32em] text-[#d8ba7a] font-medium mt-6">
+      Private Walkthrough Confirmed
+    </p>
 
-    <!-- Generous Editorial Typography -->
-    <h2 id="ty-headline" class="font-headline-lg text-4xl sm:text-5xl text-white font-normal tracking-tight leading-[1.12] mt-4">
-      Thank You.
+    <h2 id="ty-headline" class="font-headline-lg text-[2.5rem] sm:text-[3.75rem] lg:text-[4.5rem] text-white font-normal tracking-[-0.02em] leading-[1.08] mt-4 sm:mt-5" style="text-wrap: balance;">
+      Thank you.
     </h2>
-    <p class="text-sm text-[#cbd5e1] font-light leading-[1.8] mt-5 max-w-[430px] mx-auto">
+
+    <p class="text-sm sm:text-base text-[#cbd5e1] font-light leading-[1.8] mt-6 max-w-[440px] mx-auto">
       Your private visit request for Ira Moonglade has been received. A dedicated KONU advisor will reach out shortly to confirm a time that suits you.
     </p>
 
-    <!-- Optional Visit Date (Hidden When Not Selected) -->
-    <p id="ty-date-line" class="hidden text-xs tracking-[0.12em] uppercase text-[#f0d799] font-medium mt-6 tabular-nums"></p>
+    <!-- Optional Visit Date (Quiet Unboxed Typography) -->
+    <p id="ty-date-line" class="hidden text-[11px] sm:text-xs tracking-[0.22em] uppercase text-[#f0d799] font-medium mt-6 tabular-nums"></p>
 
-    <!-- Spacious Primary Action & Concierge Contact -->
-    <div class="mt-10 sm:mt-12 flex flex-col sm:flex-row items-center justify-center gap-5 sm:gap-8">
-      <button type="button" onclick="returnFromThankYou()" class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-[#f8fafc] hover:bg-[#f0d799] text-[#050e1d] px-8 py-4 text-[10px] uppercase tracking-[0.22em] font-semibold transition-colors cursor-pointer">
+    <!-- Clean Navigation & Concierge Actions -->
+    <div class="mt-10 sm:mt-14 flex flex-col sm:flex-row items-center justify-center gap-5 sm:gap-9 w-full sm:w-auto">
+      <button type="button" onclick="returnFromThankYou()" class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-[#f8fafc] hover:bg-[#f0d799] text-[#050e1d] px-8 py-4 text-[10.5px] uppercase tracking-[0.22em] font-semibold transition-colors cursor-pointer whitespace-nowrap shrink-0">
         <span class="material-symbols-outlined text-[15px]">arrow_back</span>
         <span>Return to Previous Page</span>
       </button>
-      <a href="tel:+914088204400" class="inline-flex items-center justify-center gap-2 text-xs tracking-[0.1em] text-[#cbd5e1] hover:text-[#f0d799] font-normal tabular-nums transition-colors py-1">
+      <a href="tel:+914088204400" class="inline-flex items-center justify-center gap-2 text-xs tracking-[0.14em] text-[#cbd5e1] hover:text-[#f0d799] font-normal tabular-nums transition-colors py-2 whitespace-nowrap shrink-0">
         <span class="material-symbols-outlined text-[15px] text-[#d8ba7a]">phone_in_talk</span>
         <span>+91 40 8820 4400</span>
       </a>
     </div>
+  </div>
+
+  <!-- Quiet Location Whisper -->
+  <div class="relative z-10 w-full max-w-[1280px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-[9.5px] sm:text-[10px] uppercase tracking-[0.24em] text-white/45 text-center sm:text-left">
+    <span>Ira Moonglade · Kokapet, Hyderabad</span>
+    <span>E Infra Ira Ventures</span>
   </div>
 </section>
 
@@ -2185,7 +2203,17 @@
 
     const cleanName = (data && data.name ? String(data.name).trim() : '');
     if (headlineEl) {
-      headlineEl.textContent = cleanName ? `Thank You, ${cleanName}.` : 'Thank You.';
+      headlineEl.textContent = '';
+      if (cleanName) {
+        headlineEl.appendChild(document.createTextNode('Thank you, '));
+        const nameSpan = document.createElement('span');
+        nameSpan.className = 'italic text-[#f0d799]';
+        nameSpan.textContent = cleanName;
+        headlineEl.appendChild(nameSpan);
+        headlineEl.appendChild(document.createTextNode('.'));
+      } else {
+        headlineEl.textContent = 'Thank you.';
+      }
     }
     if (dateLineEl) {
       const dateStr = data && data.date ? formatVisitDate(data.date) : '';
