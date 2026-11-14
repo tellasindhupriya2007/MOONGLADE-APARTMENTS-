@@ -7,10 +7,15 @@
   "scripts": {
     "dev": "node server.js",
     "start": "node server.js",
-    "build": "node --check server.js",
+    "build:css": "tailwindcss -c tailwind.config.cjs -i src/input.css -o public/assets/tailwind.min.css --minify",
+    "build": "npm run build:css && node --check server.js",
     "lint": "node --check server.js"
   },
   "dependencies": {
-    "express": "^4.21.2"
+    "@tailwindcss/container-queries": "^0.1.1",
+    "@tailwindcss/forms": "^0.5.11",
+    "compression": "^1.8.2",
+    "express": "^4.21.2",
+    "tailwindcss": "3"
   }
 }

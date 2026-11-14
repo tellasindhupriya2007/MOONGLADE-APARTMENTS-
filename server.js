@@ -1,4 +1,5 @@
 import express from 'express';
+import compression from 'compression';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -8,6 +9,7 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 app.set('trust proxy', true);
+app.use(compression());
 
 const PORT = Number(process.env.PORT) || 3000;
 const HOST = '0.0.0.0';
@@ -28,7 +30,11 @@ function sendSeoHtml(req, res) {
   res.send(renderedHtml);
 }
 
-app.use(express.static(path.join(__dirname, 'public'), { index: false }));
+app.use(express.static(path.join(__dirname, 'public'), {
+  index: false,
+  maxAge: '30d',
+  immutable: true
+}));
 app.use(express.static(__dirname, { index: false }));
 
 app.get('/robots.txt', (req, res) => {
